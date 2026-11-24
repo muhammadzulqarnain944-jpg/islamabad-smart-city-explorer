@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Islamabad Smart City Explorer</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand-icon">IS</div>
+
+                <div>
+                    <h2>Smart City</h2>
+                    <p>ISLAMABAD EXPLORER</p>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="section-label">OVERVIEW</p>
+
+                <div class="overview-card">
+                    <span>Total Facilities</span>
+                    <h1 id="totalFacilities">--</h1>
+                    <small>Mapped facilities in Islamabad</small>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="section-label">FACILITY CATEGORIES</p>
+
+                <div class="category-list">
+
+                    <button class="category-btn active" data-category="All">
+                        <span class="category-icon all">◎</span>
+                        <span>All Facilities</span>
+                        <span class="category-count" id="countAll">--</span>
+                    </button>
+
+                    <button class="category-btn" data-category="Education">
+                        <span class="category-icon education">E</span>
+                        <span>Education</span>
+                        <span class="category-count" id="countEducation">--</span>
+                    </button>
+
+                    <button class="category-btn" data-category="Healthcare">
+                        <span class="category-icon healthcare">H</span>
+                        <span>Healthcare</span>
+                        <span class="category-count" id="countHealthcare">--</span>
+                    </button>
+
+                    <button class="category-btn" data-category="Public Safety">
+                        <span class="category-icon safety">S</span>
+                        <span>Public Safety</span>
+                        <span class="category-count" id="countSafety">--</span>
+                    </button>
+
+                    <button class="category-btn" data-category="Recreation">
+                        <span class="category-icon recreation">R</span>
+                        <span>Recreation</span>
+                        <span class="category-count" id="countRecreation">--</span>
+                    </button>
+
+                    <button class="category-btn" data-category="Other">
+                        <span class="category-icon other">O</span>
+                        <span>Other</span>
+                        <span class="category-count" id="countOther">--</span>
+                    </button>
+
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <p class="section-label">MAP INFORMATION</p>
+
+                <div class="info-item">
+                    <span>Study Area</span>
+                    <strong>Islamabad, Pakistan</strong>
+                </div>
+
+                <div class="info-item">
+                    <span>Mapping Library</span>
+                    <strong>Leaflet.js</strong>
+                </div>
+
+                <div class="info-item">
+                    <span>Data Source</span>
+                    <strong>OpenStreetMap</strong>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="status-dot"></div>
+                <span>GIS System Online</span>
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+
+            <header class="topbar">
+
+                <div>
+                    <p class="breadcrumb">GIS PLATFORM / ISLAMABAD</p>
+                    <h1>Islamabad Smart City Explorer</h1>
+                    <p class="subtitle">
+                        Explore public facilities through interactive mapping.
+                    </p>
+                </div>
+
+                <div class="topbar-right">
+                    <span class="live-indicator"></span>
+                    <span>Live Map</span>
+                </div>
+
+            </header>
+
+
+            <!-- SEARCH AND FILTERS -->
+            <section class="toolbar">
+
+                <div class="search-box">
+                    <span>⌕</span>
+
+                    <input type="text" id="searchInput" placeholder="Search facilities by name...">
+
+                    <button id="searchButton">Search</button>
+                </div>
+
+                <button id="resetButton" class="reset-button">
+                    Reset Filters
+                </button>
+
+            </section>
+
+
+            <!-- MAP HEADER -->
+            <section class="map-heading">
+
+                <div>
+                    <h2>Interactive GIS Map</h2>
+                    <p>Geographic distribution of public facilities</p>
+                </div>
+
+                <div class="map-status">
+                    <span class="status-dot"></span>
+                    <span id="mapStatus">Loading map data...</span>
+                </div>
+
+            </section>
+
+
+            <!-- MAP -->
+            <section class="map-wrapper">
+                <div id="map"></div>
+            </section>
+
+
+            <!-- BOTTOM INFORMATION -->
+            <section class="bottom-panel">
+
+                <div class="result-info">
+                    <h3>Facility Explorer</h3>
+                    <p id="resultText">
+                        Loading facility information...
+                    </p>
+                </div>
+
+                <div class="legend">
+
+                    <div>
+                        <span class="legend-dot education-dot"></span>
+                        Education
+                    </div>
+
+                    <div>
+                        <span class="legend-dot healthcare-dot"></span>
+                        Healthcare
+                    </div>
+
+                    <div>
+                        <span class="legend-dot safety-dot"></span>
+                        Public Safety
+                    </div>
+
+                    <div>
+                        <span class="legend-dot recreation-dot"></span>
+                        Recreation
+                    </div>
+
+                    <div>
+                        <span class="legend-dot other-dot"></span>
+                        Other
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <footer class="footer">
+                <span>Islamabad Smart City Explorer</span>
+                <span>Powered by PostgreSQL · PostGIS · FastAPI · Leaflet</span>
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+    </script>
+
+    <!-- Custom JavaScript -->
+    <script src="app.js"></script>
+
+</body>
+
+</html>
